@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>Add Property</title>
+</head>
+<body>
+
+<h1>Add Property</h1>
+
+<form action="/add-property" method="POST" enctype="multipart/form-data">
+
+<input type="text" name="title" placeholder="Property Title" required>
+<br><br>
+
+<input type="number" name="price" placeholder="Price" required>
+<br><br>
+
+<input type="text" name="location" placeholder="Location" required>
+<br><br>
+
+<input type="number" name="bhk" placeholder="BHK" required>
+<br><br>
+
+<input type="text" name="area" placeholder="Area" required>
+<br><br>
+
+<label>Property Image</label> <br> <input type="file" name="image" required>
+
+<br><br>
+
+<label>Gallery Images</label> <br> <input type="file" name="gallery" multiple>
+
+<br><br>
+
+<textarea name="description" placeholder="Description"></textarea>
+
+<br><br>
+
+<input
+type="text"
+name="mapLink"
+placeholder="Google Map Embed Link">
+
+<br><br>
+
+<input
+type="number"
+step="any"
+name="latitude"
+placeholder="Latitude">
+
+<br><br>
+
+<input
+type="number"
+step="any"
+name="longitude"
+placeholder="Longitude">
+
+<br><br>
+
+<select name="propertyType">
+<option>Apartment</option>
+<option>Villa</option>
+<option>Plot</option>
+<option>Commercial</option>
+</select>
+
+<br><br>
+
+<select name="status">
+<option>Available</option>
+<option>Sold</option>
+</select>
+
+<br><br>
+
+<label>Featured Property</label> <input type="checkbox" name="featured">
+
+<br><br>
+
+<button type="submit">Save Property</button>
+
+</form>
+
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Customer Leads</title>
+
+<style>
+
+body{
+font-family:Arial,sans-serif;
+background:#f5f7fa;
+margin:0;
+}
+
+.header{
+background:#0b1f4d;
+color:white;
+padding:20px;
+}
+
+.container{
+max-width:1200px;
+margin:auto;
+padding:30px;
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+}
+
+th{
+background:#0b1f4d;
+color:white;
+padding:12px;
+text-align:left;
+}
+
+td{
+padding:12px;
+border-bottom:1px solid #ddd;
+}
+
+tr:hover{
+background:#f8f9fa;
+}
+
+.btn{
+padding:8px 14px;
+background:red;
+color:white;
+text-decoration:none;
+border-radius:5px;
+font-size:14px;
+}
+
+.back{
+background:#0b1f4d;
+padding:12px 20px;
+display:inline-block;
+margin-top:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+<h1>📞 Customer Leads</h1>
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<h2>Total Leads: <%= leads.length %></h2>
+<a
+href="/export-leads"
+class="btn"
+style="background:#28a745;margin-bottom:15px;">
+📥 Export Excel
+</a>
+<table>
+
+<tr>
+<th>Name</th>
+<th>Phone</th>
+<th>Email</th>
+<th>Property</th>
+<th>Action</th>
+</tr>
+
+<% leads.forEach(lead => { %>
+
+<tr>
+
+<td><%= lead.name %></td>
+
+<td>
+<a href="tel:<%= lead.phone %>">
+<%= lead.phone %>
+</a>
+</td>
+
+<td><%= lead.email %></td>
+
+<td>
+<%= lead.propertyId ? lead.propertyId.title : "N/A" %>
+</td>
+
+<td>
+<a
+href="/delete-lead/<%= lead._id %>"
+class="btn"
+onclick="return confirm('Delete this lead?')">
+Delete
+</a>
+</td>
+
+</tr>
+
+<% }) %>
+
+</table>
+
+<a href="/dashboard" class="btn back">
+⬅ Back to Dashboard
+</a>
+
+</div>
+
+</div>
+
+</body>
+</html>

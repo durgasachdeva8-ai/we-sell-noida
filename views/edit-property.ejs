@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<title>Edit Property</title>
+</head>
+
+<body>
+
+<h1>Edit Property</h1>
+
+<form action="/edit-property/<%= property._id %>" method="POST">
+
+<input
+type="text"
+name="title"
+value="<%= property.title %>"
+required>
+
+<br><br>
+
+<input
+type="number"
+name="price"
+value="<%= property.price %>"
+required>
+
+<br><br>
+
+<input
+type="text"
+name="location"
+value="<%= property.location %>"
+required>
+
+<br><br>
+
+<input
+type="number"
+name="bhk"
+value="<%= property.bhk %>"
+required>
+
+<br><br>
+
+<input
+type="text"
+name="area"
+value="<%= property.area %>"
+required>
+
+<br><br>
+
+<input
+type="text"
+name="image"
+value="<%= property.image %>"
+required>
+
+<br><br>
+
+<textarea
+name="description"
+rows="5"><%= property.description %></textarea>
+
+<br><br>
+
+<label>Google Map Link</label>
+
+<br>
+
+<input
+type="text"
+name="mapLink"
+value="<%= property.mapLink %>">
+
+<br><br>
+
+<label>Latitude</label>
+
+<br>
+
+<input
+type="number"
+step="any"
+name="latitude"
+value="<%= property.latitude %>"
+placeholder="Latitude">
+
+<br><br>
+
+<label>Longitude</label>
+
+<br>
+
+<input
+type="number"
+step="any"
+name="longitude"
+value="<%= property.longitude %>"
+placeholder="Longitude">
+
+<br><br>
+
+<button type="submit">
+Update Property
+</button>
+
+</form>
+
+</body>
+</html>

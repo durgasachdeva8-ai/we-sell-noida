@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Manage Properties</title>
+
+<style>
+
+body{
+font-family:Arial,sans-serif;
+background:#f5f7fa;
+margin:0;
+}
+
+.header{
+background:#0b1f4d;
+color:white;
+padding:20px;
+}
+
+.container{
+max-width:1300px;
+margin:auto;
+padding:30px;
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+.search-box{
+margin-bottom:20px;
+}
+
+.search-box input{
+width:100%;
+padding:12px;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:16px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+}
+
+th{
+background:#0b1f4d;
+color:white;
+padding:14px;
+text-align:left;
+}
+
+td{
+padding:12px;
+border-bottom:1px solid #ddd;
+}
+
+tr:hover{
+background:#f8f9fa;
+}
+
+.property-img{
+width:100px;
+height:70px;
+object-fit:cover;
+border-radius:8px;
+}
+
+.badge{
+padding:6px 12px;
+border-radius:20px;
+font-size:12px;
+font-weight:bold;
+display:inline-block;
+}
+
+.featured{
+background:#FFD700;
+color:black;
+}
+
+.available{
+background:#28a745;
+color:white;
+}
+
+.sold{
+background:#dc3545;
+color:white;
+}
+
+.btn{
+padding:8px 14px;
+text-decoration:none;
+color:white;
+border-radius:5px;
+font-size:14px;
+margin-right:5px;
+}
+
+.edit{
+background:#0b1f4d;
+}
+
+.delete{
+background:red;
+}
+
+.back{
+background:#0b1f4d;
+display:inline-block;
+margin-top:20px;
+padding:12px 20px;
+}
+
+.stats{
+font-size:20px;
+font-weight:bold;
+margin-bottom:15px;
+color:#0b1f4d;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<h1>🏠 Manage Properties</h1>
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<div class="stats">
+Total Properties: <%= properties.length %>
+</div>
+
+<div class="search-box">
+<input
+type="text"
+id="searchInput"
+placeholder="🔍 Search Property by Title or Location">
+</div>
+<div style="margin-bottom:20px;display:flex;gap:10px;flex-wrap:wrap;">
+
+<select id="statusFilter" style="padding:10px;">
+  <option value="">All Status</option>
+  <option value="Available">Available</option>
+  <option value="Sold">Sold</option>
+</select>
+
+<select id="featuredFilter" style="padding:10px;">
+  <option value="">All Properties</option>
+  <option value="featured">Featured Only</option>
+</select>
+
+</div>
+
+<table id="propertyTable">
+
+<tr>
+<th>Image</th>
+<th>Title</th>
+<th>Location</th>
+<th>Price</th>
+<th>Status</th>
+<th>Featured</th>
+<th>Actions</th>
+</tr>
+
+<% properties.forEach(property => { %>
+
+<tr>
+
+<td>
+<img
+src="<%= property.image %>"
+class="property-img">
+</td>
+
+<td>
+<%= property.title %>
+</td>
+
+<td>
+<%= property.location %>
+</td>
+
+<td>
+₹ <%= property.price %>
+</td>
+
+<td>
+<span class="badge <%= property.status === 'Sold' ? 'sold' : 'available' %>">
+<%= property.status || "Available" %>
+</span>
+</td>
+
+<td>
+<% if(property.featured){ %>
+<span class="badge featured">
+⭐ Featured
+</span>
+<% } else { %>
+-
+<% } %>
+</td>
+
+<td>
+
+<a
+href="/edit-property/<%= property._id %>"
+class="btn edit">
+✏ Edit
+</a>
+
+<a
+href="/delete-property/<%= property._id %>"
+class="btn delete"
+onclick="return confirm('Delete this property?')">
+🗑 Delete
+</a>
+
+</td>
+
+</tr>
+
+<% }) %>
+
+</table>
+
+<a href="/dashboard" class="btn back">
+⬅ Back to Dashboard
+</a>
+
+</div>
+
+</div>
+
+<script>
+
+function filterProperties(){
+
+let search =
+document.getElementById("searchInput")
+.value.toLowerCase();
+
+let status =
+document.getElementById("statusFilter")
+.value.toLowerCase();
+
+let featured =
+document.getElementById("featuredFilter")
+.value;
+
+let rows =
+document.querySelectorAll("#propertyTable tr");
+
+rows.forEach((row,index)=>{
+
+if(index === 0) return;
+
+let text =
+row.innerText.toLowerCase();
+
+let rowStatus =
+row.querySelector("td:nth-child(5)")
+.innerText.toLowerCase();
+
+let rowFeatured =
+row.querySelector("td:nth-child(6)")
+.innerText.toLowerCase();
+
+let searchMatch =
+text.includes(search);
+
+let statusMatch =
+status === "" ||
+rowStatus.includes(status);
+
+let featuredMatch =
+featured === "" ||
+rowFeatured.includes("featured");
+
+row.style.display =
+(searchMatch &&
+ statusMatch &&
+ featuredMatch)
+? ""
+: "none";
+
+});
+
+}
+
+document.getElementById("searchInput")
+.addEventListener("keyup", filterProperties);
+
+document.getElementById("statusFilter")
+.addEventListener("change", filterProperties);
+
+document.getElementById("featuredFilter")
+.addEventListener("change", filterProperties);
+
+</script>
+</body>
+</html>
